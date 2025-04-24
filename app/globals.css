@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+.font-clash {
+    font-family: 'Clash Display', sans-serif;
+  }
+  @layer base {
+    .font-raleway {
+      font-family: var(--font-raleway), system-ui, sans-serif;
+    }
+    
+    .font-inter {
+      font-family: var(--font-inter), system-ui, sans-serif;
+    }
+    
+    .font-jetbrains {
+      font-family: var(--font-jetbrains-mono), monospace;
+    }
+    
+    .font-outfit {
+      font-family: var(--font-outfit), system-ui, sans-serif;
+    }
+    
+    .font-montserrat {
+      font-family: var(--font-montserrat), system-ui, sans-serif;
+    }
+  }
