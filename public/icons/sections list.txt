@@ -1,0 +1,19 @@
+nav and footer are already available across all pages
+Yieldable Sections
+
+1. @yield('content') – Main page body area
+2. @yield('side_content_up') – Top part of the sidebar
+3. @yield('side_content_bottom') – Bottom part of the sidebar
+
+
+
+Include-able Sections 
+
+1.parts.badge.blade.php – Logo, motto text, and default login button
+2.parts.default-action-button.blade.php – Reusable action/login button
+3.parts.help-support.blade.php – Contact/support information card
+4.parts.hero.blade.php – Hero section with image slider
+5.parts.quick-links.blade.php – Shows three quick navigation links
+6.parts.service-listing-items.blade.php – Single service item (used in nav)
+7.parts.service-listing.blade.php – Full service section (used in sidebar)
+8.parts.index.blade.php – Full sidebar (combines badge, service listing, quick links, and help support)

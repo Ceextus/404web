@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 const Nav = () => {
   const [openRight, setOpenRight] = useState(false);
   const [openLeft, setOpenLeft] = useState(false);
@@ -17,26 +17,28 @@ const Nav = () => {
   ];
 
   return (
-    <div className="font-montserrat">
-      <div className="bg-white shadow-md">
-      <nav className="flex items-center justify-between px-6 py-4   z-30 w-[80%] mx-auto sticky top-0">
+    <div className="font-montserrat sticky top-0 z-50 shadow-lg ">
+      <div className="bg-white ">
+      <nav className="flex items-center justify-between z-30 w-[80%] max-lg:w-[100%] mx-auto  top-0 pr-3">
         {/* Logo */}
         <Link href="/">
-          <span className="flex items-center">
-            <span className="ml-2 text-2xl font-montserrat  font-bold text-purple-700 hover:animate-pulse">404Services</span>
-          </span>
+            {/* <span className="flex items-center">
+              <span className="ml-2 text-2xl font-montserrat  font-bold text-purple-700 hover:animate-pulse">404Services</span>
+              
+            </span> */}
+          <Image
+            src={"/404 slogo.png"}
+            alt="Logo"
+            width={200}
+            height={200}
+            className="w-64 object-contain"
+          />
         </Link>
 
-        {/* Mobile Nav Menu Toggle */}
-        <button
-          onClick={() => setOpenRight(!openRight)}
-          className="md:hidden z-20"
-        >
-          <Image src="/icons/menu.png" alt="Menu" width={24} height={24} />
-        </button>
+      
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden lg:flex items-center space-x-6">
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -53,48 +55,134 @@ const Nav = () => {
           <button className="bg-orange-400 text-white font-semibold px-4 py-2 rounded">
             Request A Quote
           </button>
-          <button onClick={() => setOpenLeft(!openLeft)} className="z-20 block">
-            <Image src="/icons/menu.png" alt="Info" width={28} height={24} />
+          <button onClick={() => setOpenLeft(!openLeft)} className="z-20 block cursor-pointer">
+            <Image src="/icons/app.png" alt="Info" width={28} height={24} />
           </button>
         </div>
+         <div className="flex items-center lg:hidden space-x-4">
+           {/* Mobile Nav Menu Toggle */}
+           <button onClick={() => setOpenLeft(!openLeft)} className="z-20  cursor-pointer hidden max-lg:block">
+            <Image src="/icons/app.png" alt="Info" width={38} height={34} />
+          </button>
+        <button
+          onClick={() => setOpenRight(!openRight)}
+          className="md:hidden z-20 cursor-pointer"
+        >
+          <Image src="/icons/menu.png" alt="Menu" width={38} height={34} />
+        </button>
+         </div>
       </nav>
       </div>
 
       {/* Left Sidebar (Company Info) */}
       <div
-          className={`fixed top-0 right-0 h-full w-1/3 bg-gray-100 shadow-lg transform transition-transform duration-500 ease-in-out z-40 ${
-            openLeft ? "translate-x-0" : "translate-x-full"
-          }`}
+  className={`fixed top-0 right-0 h-full w-full sm:w-4/5 lg:w-1/3 bg-gray-100 shadow-lg transform transition-transform duration-500 ease-in-out z-40 ${
+    openLeft ? "translate-x-0" : "translate-x-full"
+  } max-h-screen overflow-y-auto`}
+>
+  <div className="p-6 space-y-4">
+    <div className="flex items-center justify-between w-full">
+    <Image
+            src={"/404 slogo.png"}
+            alt="Logo"
+            width={200}
+            height={200}
+            className="w-44 object-contain"
+          />
+      <button
+        onClick={() => setOpenLeft(false)}
+        className="text-3xl font-bold border border-gray-200 px-3 rounded-xl cursor-pointer"
       >
-        <div className="p-6 space-y-4">
-          <button
-            onClick={() => setOpenLeft(false)}
-            className="self-end text-2xl font-bold"
-          >
-            &times;
-          </button>
-          <h2 className="text-xl font-bold text-purple-600">About Us</h2>
-          <p className="text-sm text-gray-700">
-            We’re a creative tech agency helping brands build top-notch digital
-            experiences.
-          </p>
-          <p className="text-sm text-gray-500">info@404services.com</p>
+        &times;
+      </button>
+    </div>
+
+    <section className="p-4 sm:p-6 lg:p-8 max-w-2xl mx-auto">
+      <div className="text-sm text-orange-500 mb-2">Get in Touch</div>
+      <h2 className="text-2xl sm:text-3xl font-bold mb-4">Reach out to 404Services</h2>
+      <p className="text-gray-600 mb-8">
+        404 is an IT consulting company specializing in automating innovative solutions for businesses.
+      </p>
+
+      <div className="space-y-6">
+        {/* Phone */}
+        <div className="flex items-start gap-4">
+          <FaPhoneAlt className="text-purple-500 text-xl mt-1" />
+          <div>
+            <p className="text-sm text-gray-500">Chat or call any of these numbers:</p>
+            <p className="text-base font-medium">+2348100311203</p>
+            <p className="text-base font-medium">2349068262592</p>
+          </div>
+        </div>
+
+        {/* Email */}
+        <div className="flex items-start gap-4">
+          <FaEnvelope className="text-purple-500 text-xl mt-1" />
+          <div>
+            <p className="text-sm text-gray-500">Send Us an Email</p>
+            <p className="text-base font-medium">support@chaiiiii.com</p>
+          </div>
+        </div>
+
+        {/* Location */}
+        <div className="flex items-start gap-4">
+          <FaMapMarkerAlt className="text-purple-500 text-xl mt-1" />
+          <div>
+            <p className="text-sm text-gray-500">Address</p>
+            <p className="text-base font-medium">Abuja, Nigeria</p>
+          </div>
         </div>
       </div>
 
+      {/* Socials */}
+      <div className="mt-10">
+        <h3 className="text-lg font-semibold mb-4">Social Just You Connected Us!</h3>
+        <div className="flex gap-6 flex-wrap">
+          <a href="#" className="flex flex-col items-center text-gray-600 hover:text-black">
+            <FaLinkedin className="text-2xl" />
+            <span className="text-xs mt-1">LinkedIn</span>
+          </a>
+          <a href="#" className="flex flex-col items-center text-gray-600 hover:text-black">
+            <FaFacebook className="text-2xl" />
+            <span className="text-xs mt-1">Facebook</span>
+          </a>
+          <a href="#" className="flex flex-col items-center text-gray-600 hover:text-black">
+            <FaTwitter className="text-2xl" />
+            <span className="text-xs mt-1">Twitter</span>
+          </a>
+          <a href="#" className="flex flex-col items-center text-gray-600 hover:text-black">
+            <FaInstagram className="text-2xl" />
+            <span className="text-xs mt-1">Instagram</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+
       {/* Right Sidebar (Nav Menu for Mobile) */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-40 ${
-          openRight ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 left-0 h-full w-64 max-md:w-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-40 ${
+          openRight ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="p-6 flex flex-col space-y-4">
+        <div className="flex items-center justify-between w-full ">
+        <Image
+            src={"/404 slogo.png"}
+            alt="Logo"
+            width={200}
+            height={200}
+            className="w-44 object-contain"
+          />
           <button
             onClick={() => setOpenRight(false)}
-            className="self-end text-2xl font-bold"
+            className="text-4xl cursor-pointer"
           >
             &times;
           </button>
+        </div>
           {navItems.map((item) => (
             <Link key={item.name} href={item.link}>
               <span
