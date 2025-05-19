@@ -134,7 +134,7 @@ const ServiceSection = ({ service, isReversed, index, total }) => {
   return (
     <section 
       ref={sectionRef}
-      className={`relative w-full h-screen ${service.bgColor} ${service.textColor} py-24 px-8 overflow-hidden`}
+      className={`relative w-full h-screen/2 ${service.bgColor} ${service.textColor} py-24 px-8 overflow-hidden`}
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center h-full">
         {/* Content */}
