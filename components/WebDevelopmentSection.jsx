@@ -1,6 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 // Define the service data for each section
 const serviceData = [
@@ -66,11 +71,13 @@ const serviceData = [
   }
 ];
 
-const ServiceSection = ({ service, isReversed }) => {
+const ServiceSection = ({ service, isReversed, index, total }) => {
+  const sectionRef = useRef(null);
   const imageContainerRef = useRef(null);
   const imageRef = useRef(null);
 
   useEffect(() => {
+    // Magnetic effect code
     if (!imageContainerRef.current || !imageRef.current) return;
     
     const container = imageContainerRef.current;
@@ -84,42 +91,52 @@ const ServiceSection = ({ service, isReversed }) => {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      // Calculate distance from center
       const distX = x - centerX;
       const distY = y - centerY;
       
-      // Magnetic effect - image follows cursor with easing
-      const strength = 0.15; // Adjust for stronger/weaker magnetic pull
+      const strength = 0.15;
       const moveX = distX * strength;
       const moveY = distY * strength;
 
-      // Apply transform with smooth transition for magnetic effect
       image.style.transform = `translate(${moveX}px, ${moveY}px)`;
       
-      // Add a subtle shadow movement
       const shadowX = moveX / 2;
       const shadowY = moveY / 2;
       container.style.boxShadow = `${shadowX}px ${shadowY}px 30px ${service.accentColor.shadow}`;
     };
 
     const handleMouseLeave = () => {
-      // Reset transform with smooth transition
       image.style.transform = 'translate(0, 0)';
       container.style.boxShadow = `0px 0px 20px ${service.accentColor.lightShadow}`;
     };
 
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mouseleave", handleMouseLeave);
+
+    // GSAP ScrollTrigger Setup
+    if (sectionRef.current) {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: index === 0 ? "top top" : "top top+=80px", // First section starts at top, others slightly offset
+        end: index === total - 1 ? "bottom bottom" : "bottom top+=80px", // Last section ends at bottom
+        pin: true,
+        pinSpacing: false,
+        // markers: true, // Uncomment for debugging  
+      });
+    }
     
     return () => {
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [service.accentColor.shadow, service.accentColor.lightShadow]);
+  }, [service.accentColor.shadow, service.accentColor.lightShadow, index, total]);
 
   return (
-    <section className={`relative w-full ${service.bgColor} ${service.textColor} py-24 px-8 overflow-hidden`}>
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
+    <section 
+      ref={sectionRef}
+      className={`relative w-full h-screen ${service.bgColor} ${service.textColor} py-24 px-8 overflow-hidden`}
+    >
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center h-full">
         {/* Content */}
         <div className={`w-full md:w-1/2 ${isReversed ? 'order-2 md:pl-12' : 'order-1 md:pr-12'}`}>
           <h2 className="text-5xl font-bold mb-6">{service.title}</h2>
@@ -135,7 +152,7 @@ const ServiceSection = ({ service, isReversed }) => {
         </div>
         
         {/* Image with Magnetic Effect */}
-        <div className={`w-full md:w-1/2 flex ${isReversed ? 'order-1 justify-center md:justify-start' : 'order-2 justify-center md:justify-end'} mt-10 md:mt-0`}>
+        <div className={`w-full md:w-1/2 flex ${isReversed ? 'order-1 justify-center md:justify-start' : 'order-2 justify-center md:justify-end'} mt-10 md:mt-0 max-md:hidden`}>
           <div 
             ref={imageContainerRef}
             className="relative rounded-full overflow-hidden"
@@ -177,6 +194,8 @@ const ServicesSections = () => {
           key={service.title} 
           service={service} 
           isReversed={index % 2 !== 0} // Alternating layout
+          index={index}
+          total={serviceData.length}
         />
       ))}
     </>

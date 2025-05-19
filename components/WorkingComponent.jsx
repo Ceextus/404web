@@ -66,26 +66,27 @@ const WorkingProcess = () => {
             </button>
           </div>
 
-          {/* Timeline progress indicator */}
           <div className="relative mt-12">
             <div className="absolute top-7 left-0 right-0 h-0.5 bg-gray-200">
               {/* Progress indicator */}
               <div
                 className="absolute top-0 left-0 h-full bg-orange-600 transition-all duration-500"
-                style={{ width: `${(currentPage / (totalPages - 1)) * 100}%` }}
+                style={{ width: `${((currentPage + 1) / totalPages) * 100}%` }}
               />
             </div>
           </div>
         </div>
 
-        {/* Custom slider component */}
         <div className="mt-12 overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${currentPage * 100}%)` }}
           >
             {Array.from({ length: totalPages }).map((_, pageIndex) => (
-              <div key={pageIndex} className="w-full flex-shrink-0 flex gap-6">
+              <div
+                key={pageIndex}
+                className="w-full flex-shrink-0 flex flex-wrap gap-6"
+              >
                 {steps
                   .slice(
                     pageIndex * itemsPerPage,
@@ -94,9 +95,9 @@ const WorkingProcess = () => {
                   .map((step, stepIndex) => (
                     <div
                       key={pageIndex * itemsPerPage + stepIndex}
-                      className="w-1/3 flex-shrink-0 px-4"
+                      className="w-full sm:w-1/2 lg:w-[32%] px-2"
                     >
-                      <div className="text-8xl font-bold text-gray-200 mb-4 mt-4 cursor-pointer hover:[text-shadow:-1px_-1px_0_#9333ea,1px_-1px_0_#9333ea,-1px_1px_0_#9333ea,1px_1px_0_#9333ea] transition-all duration-500">
+                      <div className="text-8xl font-bold text-gray-200 mb-4 mt-4 cursor-pointer hover:[text-shadow:-1px_-1px_0_#9333ea,1px_-1px_0_#9333ea,-1px_1px_0_#9333ea,1px_1px_0_#9333ea] transition-all duration-500 py-3">
                         {step.number}
                       </div>
                       <h3 className="text-2xl font-bold mb-4">{step.title}</h3>

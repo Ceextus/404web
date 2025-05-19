@@ -94,49 +94,51 @@ const FeatureCard = ({ feature, index }) => {
 };
 
 const AboutSection = () => {
-  return (
+return (
     <section className="py-16 px-4 md:px-16 bg-white text-black font-montserrat">
-      <div className="max-w-7xl items-center  mx-auto flex flex-col md:flex-row gap-10">
-        {/* Left Section */}
-        <div className="flex-1 flex flex-col gap-2">    
-          <p className="text-orange-600 font-semibold uppercase mb-2">
-            About 404Services
-          </p>
-          <h2 className="text-5xl font-bold leading-tight mb-6">
-            Let Your <span className="text-purple-600">Next Click</span> be
-            <span className="text-black">404SERVICES.</span>
-          </h2>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            DexfliQ is a leading company specializing in developing and
-            deploying technologies for efficient business management. With a
-            team of software experts, we create innovative solutions that
-            enhance activities in the academic, business, and social sectors.
-          </p>
-          <p className="text-gray-700 mb-6 leading-relaxed">
-            We believe in building strong relationships with our clients through
-            close collaboration and understanding of their needs. This approach
-            allows us to build mutual trust and provide tailored advice. Our
-            experts suggest suitable technologies that can transform and enhance
-            your business operations, ensuring you receive high-quality services
-            at reasonable costs.
-          </p>
-          <a
-            href="#"
-            className="text-orange-600 font-semibold hover:underline inline-flex items-center gap-1"
-          >
-            MORE ABOUT US →
-          </a>
-        </div>
+        <div className="max-w-7xl items-center mx-auto flex max-lg:flex-col  gap-10">
+            {/* Left Section */}
+            <div className="flex-1 flex flex-col gap-2">
+                <p className="text-orange-600 font-semibold uppercase mb-2 text- md:text-left">
+                    About 404Services
+                </p>
+                <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text- md:text-left">
+                    Let Your <span className="text-purple-600">Next Click</span> be
+                    <span className="text-black">404SERVICES.</span>
+                </h2>
+                <p className="text-gray-700 mb-6 leading-relaxed text- md:text-left">
+                    DexfliQ is a leading company specializing in developing and
+                    deploying technologies for efficient business management. With a
+                    team of software experts, we create innovative solutions that
+                    enhance activities in the academic, business, and social sectors.
+                </p>
+                <p className="text-gray-700 mb-6 leading-relaxed text- md:text-left">
+                    We believe in building strong relationships with our clients through
+                    close collaboration and understanding of their needs. This approach
+                    allows us to build mutual trust and provide tailored advice. Our
+                    experts suggest suitable technologies that can transform and enhance
+                    your business operations, ensuring you receive high-quality services
+                    at reasonable costs.
+                </p>
+                <div className="text-center md:text-left">
+                    <a
+                        href="#"
+                        className="text-orange-600 font-semibold hover:underline inline-flex items-center gap-1"
+                    >
+                        MORE ABOUT US →
+                    </a>
+                </div>
+            </div>
 
-        {/* Right Section */}
-        <div className="flex-1 flex flex-col gap-8">
-          {features.map((feature, index) => (
-            <FeatureCard key={index} feature={feature} index={index} />
-          ))}
+            {/* Right Section */}
+            <div className="flex-1 flex flex-col gap-8 items-center md:items-stretch">
+                {features.map((feature, index) => (
+                    <FeatureCard key={index} feature={feature} index={index} />
+                ))}
+            </div>
         </div>
-      </div>
     </section>
-  );
+);
 };
 
 export default AboutSection;
