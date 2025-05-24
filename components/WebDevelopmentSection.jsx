@@ -139,7 +139,7 @@ const ServiceSection = ({ service, isReversed, index, total }) => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center h-full">
         {/* Content */}
         <div className={`w-full md:w-1/2 ${isReversed ? 'order-2 md:pl-12' : 'order-1 md:pr-12'}`}>
-          <h2 className="text-5xl font-bold mb-6">{service.title}</h2>
+          <h2 className="text-5xl max-md:text-3xl font-bold mb-6">{service.title}</h2>
           <p className={`${service.bgColor === 'bg-gray-100' ? 'text-gray-600' : 'text-gray-300'} text-lg leading-relaxed mb-8`}>
             {service.description}
           </p>

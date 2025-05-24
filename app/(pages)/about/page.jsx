@@ -1,29 +1,38 @@
 import React from 'react'
 import { TbArrowBadgeDown } from "react-icons/tb";
 import { Shield, Settings, BarChart3 } from "lucide-react"
+import { MdOutlineKeyboardDoubleArrowDown } from 'react-icons/md';
 
 const AboutUsHeader = () => {
   return (
     <section>
-      <div className="relative w-full min-h-[300px] bg-gradient-to-r from-purple-700 via-purple-500 to-orange-500 h-77  flex flex-col items-center justify-center px-4 font-montserrat">
+      <div className="relative w-full min-h-[300px] bg-[url('/grad.jpg')] bg-cover bg-center bg-fixed  h-77  flex flex-col items-center justify-center px-4 font-montserrat">
       {/* Breadcrumb navigation */}
-      <div className="absolute top-24 left-0 right-0 flex justify-center">
-        <nav className="flex items-center text-sm">
-          <a href="/" className="text-purple-500 hover:text-purple-700">HOME</a>
-          <span className="mx-2 text-gray-400">—</span>
-          <span className="text-black font-medium">ABOUT US</span>
-        </nav>
-      </div>
+       {/* Navigation Breadcrumb */}
+            <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
+              <nav className="flex items-center space-x-2 text-sm text-black">
+                <a 
+                  href="#" 
+                  className="text-purple-600 hover:text-purple-800 transition-colors duration-200"
+                >
+                  HOME
+                </a>
+                <span className="text-gray-600">→</span>
+                <span className="text-gray-800 font-medium">About Us</span>
+              </nav>
+            </div>
       
-      {/* Main heading */}
-      <h1 className="text-4xl md:text-5xl font-black text-white mt-8 mb-16">About Us</h1>
+            {/* Main Title */}
+            <div className="text-center">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+                About Us
+              </h1>
+            </div>
       
-      {/* Scroll down indicator */}
-      <div className="absolute -bottom-7 left-0 right-0 flex justify-center">
-        <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center cursor-pointer hover:shadow-lg transition-shadow animate-bounce ">
-          <TbArrowBadgeDown className="text-orange-600 " size={60} />
-        </div>
-      </div>
+            {/* Scroll Indicator */}
+         <div className='absolute -bottom-8 z-50 left-1/2 transform -translate-x-1/2 text-gray-400 animate-bounce border border-gray-300 bg-gray-200 rounded-full px-2 py-6  cursor-pointer'>
+          <MdOutlineKeyboardDoubleArrowDown className='text-4xl  '/>
+         </div>
     </div>
 
     <section className="max-w-screen-xl mx-auto px-4 py-12">

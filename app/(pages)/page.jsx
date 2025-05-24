@@ -10,8 +10,6 @@ const page = () => {
   return (
     <div>
       <HeroSlider/>
-      landing page
-      {/* <Mouse/> */}
       <AboutSection/> 
        <WebDevelopmentSection/>
        <WorkingComponent/> 
