@@ -2,71 +2,70 @@
 import Image from "next/image";
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Define the service data for each section
+// Official 404services service data
 const serviceData = [
   {
-    title: "Web Development",
+    title: "Web Architecture",
     description: 
-      "DexfliQ offers Web Development services designed to create dynamic, responsive, and user-friendly websites that drive engagement and growth. Our skilled team utilizes the latest technologies and best practices to build custom solutions tailored to your business objectives. From e-commerce platforms to corporate websites, DexfliQ ensures that your online presence is impactful and effective.",
-    imageSrc: "/3d2.png",
-    bgColor: "bg-black",
+      "We architect custom Next.js and React builds with Tailwind CSS. Our platforms are SEO-optimized, universally accessible, and engineered for ultra-fast, near-instantaneous load times.",
+    imageSrc: "/3d2.png", // Keep existing placeholder, user can replace later
+    bgColor: "bg-[#050b14]", // Deepest Navy
     textColor: "text-white",
     accentColor: {
-      text: "text-orange-500",
-      border: "border-orange-500",
-      hover: "hover:text-orange-400",
-      shadow: "rgba(255, 165, 0, 0.3)",
-      lightShadow: "rgba(255, 165, 0, 0.2)"
+      text: "text-[#c2a66b]", // Gold
+      border: "border-[#c2a66b]",
+      hover: "hover:text-[#e6ca8a]",
+      shadow: "rgba(194, 166, 107, 0.2)",
+      lightShadow: "rgba(194, 166, 107, 0.1)"
     }
   },
   {
-    title: "Mobile App Development",
+    title: "Mobile Solutions",
     description: 
-      "Transform your ideas into powerful mobile applications with DexfliQ's comprehensive mobile development services. We create intuitive, high-performance apps for iOS and Android platforms that engage users and deliver exceptional experiences. Our team combines creative design with technical expertise to build mobile solutions that help your business thrive in the digital landscape.",
+      "Cross-platform excellence using React Native and Expo. We build high-performance mobile applications that look, feel, and run natively on every device, without the overhead of maintaining dual codebases.",
     imageSrc: "/3d4.png",
-    bgColor: "bg-gray-900",
+    bgColor: "bg-[#070f1c]", // Mid Navy
     textColor: "text-white",
     accentColor: {
-      text: "text-blue-500",
-      border: "border-blue-500",
-      hover: "hover:text-blue-400",
-      shadow: "rgba(59, 130, 246, 0.3)",
-      lightShadow: "rgba(59, 130, 246, 0.2)"
+      text: "text-[#c2a66b]",
+      border: "border-[#c2a66b]",
+      hover: "hover:text-[#e6ca8a]",
+      shadow: "rgba(194, 166, 107, 0.2)",
+      lightShadow: "rgba(194, 166, 107, 0.1)"
     }
   },
   {
-    title: "UI/UX Design",
+    title: "SaaS & Cloud Engines",
     description: 
-      "DexfliQ's UI/UX design services focus on creating visually stunning and intuitive user experiences that drive engagement and satisfaction. We combine aesthetic appeal with functional design to develop interfaces that are both beautiful and easy to use. Our design process is centered around user research, wireframing, prototyping, and iterative testing to ensure that your digital products truly resonate with your target audience.",
+      "Building the 'brain' of your business. We engineer robust database management systems, resilient API architectures, and automated workflows that scale effortlessly with your enterprise.",
     imageSrc: "/3d2.png",
-    bgColor: "bg-gray-100",
-    textColor: "text-gray-800",
+    bgColor: "bg-[#0a1628]", // Lightest Navy
+    textColor: "text-white",
     accentColor: {
-      text: "text-purple-500",
-      border: "border-purple-500",
-      hover: "hover:text-purple-400",
-      shadow: "rgba(139, 92, 246, 0.3)",
-      lightShadow: "rgba(139, 92, 246, 0.2)"
+      text: "text-[#c2a66b]",
+      border: "border-[#c2a66b]",
+      hover: "hover:text-[#e6ca8a]",
+      shadow: "rgba(194, 166, 107, 0.2)",
+      lightShadow: "rgba(194, 166, 107, 0.1)"
     }
   },
   {
-    title: "Digital Marketing",
+    title: "Cinematic UI/UX",
     description: 
-      "Amplify your online presence with DexfliQ's strategic digital marketing services. We leverage data-driven approaches to increase your brand visibility, drive qualified traffic, and boost conversions. Our comprehensive marketing solutions include SEO, content marketing, social media strategy, PPC campaigns, and email marketing – all tailored to meet your specific business goals and target audience preferences.",
+      "Dark-themed, elegant glassmorphic designs that prioritize user retention and aesthetic 'wow' factor. We don't just design interfaces; we craft visual experiences that command attention.",
     imageSrc: "/3d3.png",
-    bgColor: "bg-blue-900",
+    bgColor: "bg-[#050b14]", // Back to deep Navy
     textColor: "text-white",
     accentColor: {
-      text: "text-green-500",
-      border: "border-green-500", 
-      hover: "hover:text-green-400",
-      shadow: "rgba(34, 197, 94, 0.3)",
-      lightShadow: "rgba(34, 197, 94, 0.2)"
+      text: "text-[#c2a66b]",
+      border: "border-[#c2a66b]", 
+      hover: "hover:text-[#e6ca8a]",
+      shadow: "rgba(194, 166, 107, 0.2)",
+      lightShadow: "rgba(194, 166, 107, 0.1)"
     }
   }
 ];
@@ -77,7 +76,7 @@ const ServiceSection = ({ service, isReversed, index, total }) => {
   const imageRef = useRef(null);
 
   useEffect(() => {
-    // Magnetic effect code
+    // Magnetic Hover Effect
     if (!imageContainerRef.current || !imageRef.current) return;
     
     const container = imageContainerRef.current;
@@ -98,97 +97,120 @@ const ServiceSection = ({ service, isReversed, index, total }) => {
       const moveX = distX * strength;
       const moveY = distY * strength;
 
-      image.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      image.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
       
       const shadowX = moveX / 2;
       const shadowY = moveY / 2;
-      container.style.boxShadow = `${shadowX}px ${shadowY}px 30px ${service.accentColor.shadow}`;
+      container.style.boxShadow = `${shadowX}px ${shadowY}px 40px ${service.accentColor.shadow}`;
     };
 
     const handleMouseLeave = () => {
-      image.style.transform = 'translate(0, 0)';
-      container.style.boxShadow = `0px 0px 20px ${service.accentColor.lightShadow}`;
+      image.style.transform = 'translate(0, 0) scale(1)';
+      container.style.boxShadow = `0px 0px 30px ${service.accentColor.lightShadow}`;
     };
 
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mouseleave", handleMouseLeave);
 
-    // GSAP ScrollTrigger Setup
+    // GSAP ScrollTrigger Pinning Logic
     if (sectionRef.current) {
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: index === 0 ? "top top" : "top top+=80px", // First section starts at top, others slightly offset
-        end: index === total - 1 ? "bottom bottom" : "bottom top+=80px", // Last section ends at bottom
+        // Pin squarely at the top to cover the previous section completely
+        start: "top top",
+        end: "bottom top", 
         pin: true,
         pinSpacing: false,
-        // markers: true, // Uncomment for debugging  
       });
     }
     
     return () => {
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
+      ScrollTrigger.getAll().forEach(t => t.refresh());
     };
   }, [service.accentColor.shadow, service.accentColor.lightShadow, index, total]);
 
   return (
     <section 
       ref={sectionRef}
-      className={`relative w-full h-screen/2 ${service.bgColor} ${service.textColor} py-24 px-8 overflow-hidden`}
+      className={`relative w-full min-h-screen flex items-center ${service.bgColor} ${service.textColor} py-24 px-6 md:px-12 overflow-hidden border-t border-white/5 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]`}
+      style={{ zIndex: index }}
     >
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center h-full">
-        {/* Content */}
-        <div className={`w-full md:w-1/2 ${isReversed ? 'order-2 md:pl-12' : 'order-1 md:pr-12'}`}>
-          <h2 className="text-5xl max-md:text-3xl font-bold mb-6">{service.title}</h2>
-          <p className={`${service.bgColor === 'bg-gray-100' ? 'text-gray-600' : 'text-gray-300'} text-lg leading-relaxed mb-8`}>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between w-full h-full gap-12">
+        
+        {/* Text Content */}
+        <div className={`w-full md:w-1/2 flex flex-col gap-6 ${isReversed ? 'md:order-2 md:pl-16' : 'md:order-1 md:pr-16'}`}>
+          <div className="inline-flex items-center gap-3">
+            <span className="text-[#c2a66b] font-mono text-sm tracking-widest uppercase">
+              0{index + 1} // The Engine
+            </span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-outfit tracking-tight leading-[1.1]">
+            {service.title}
+          </h2>
+          
+          <p className="text-gray-400 text-lg md:text-xl font-light leading-relaxed max-w-xl">
             {service.description}
           </p>
-          <a 
-            href="#" 
-            className={`inline-flex items-center ${service.accentColor.text} font-semibold border-b ${service.accentColor.border} pb-1 ${service.accentColor.hover} transition-colors`}
-          >
-            REQUEST A QUOTE ✈
-          </a>
+          
+          <div className="pt-4">
+            <a 
+              href="#" 
+              className={`inline-flex items-center gap-2 group ${service.accentColor.text} ${service.accentColor.hover} transition-colors duration-300`}
+            >
+              <span className="text-sm font-semibold tracking-widest uppercase border-b border-transparent group-hover:border-[#c2a66b] pb-1 transition-colors">
+                Explore Expertise
+              </span>
+              <span className="transform group-hover:translate-x-2 transition-transform duration-300">
+                →
+              </span>
+            </a>
+          </div>
         </div>
         
         {/* Image with Magnetic Effect */}
-        <div className={`w-full md:w-1/2 flex ${isReversed ? 'order-1 justify-center md:justify-start' : 'order-2 justify-center md:justify-end'} mt-10 md:mt-0 max-md:hidden`}>
+        <div className={`w-full md:w-1/2 flex ${isReversed ? 'md:order-1 justify-center md:justify-start' : 'md:order-2 justify-center md:justify-end'} mt-10 md:mt-0`}>
           <div 
             ref={imageContainerRef}
-            className="relative rounded-full overflow-hidden"
+            className="relative rounded-full overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10"
             style={{
-              width: "300px",
-              height: "300px",
-              transition: "box-shadow 0.3s ease",
-              boxShadow: `0px 0px 20px ${service.accentColor.lightShadow}`
+              width: "350px",
+              height: "350px",
+              transition: "box-shadow 0.4s ease",
+              boxShadow: `0px 0px 30px ${service.accentColor.lightShadow}`
             }}
           >
             <div
               ref={imageRef}
               className="w-full h-full relative"
               style={{
-                transition: "transform 0.3s ease-out",
+                transition: "transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1)",
                 willChange: "transform"
               }}
             >
               <Image 
                 src={service.imageSrc}
-                width={300}
-                height={300}
-                alt={`3D ${service.title}`} 
-                className="w-full h-full object-cover"
+                width={400}
+                height={400}
+                alt={`404Services - ${service.title}`} 
+                className="w-full h-full object-cover opacity-90 p-10"
               />
             </div>
+            {/* Inner glow ring */}
+            <div className="absolute inset-0 rounded-full border border-[#c2a66b]/20 pointer-events-none"></div>
           </div>
         </div>
+        
       </div>
     </section>
   );
 };
 
-const ServicesSections = () => {
+export default function WebDevelopmentSection() {
   return (
-    <>
+    <div className="relative w-full bg-[#050b14]">
       {serviceData.map((service, index) => (
         <ServiceSection 
           key={service.title} 
@@ -198,8 +220,6 @@ const ServicesSections = () => {
           total={serviceData.length}
         />
       ))}
-    </>
+    </div>
   );
-};
-
-export default ServicesSections;
+}

@@ -1,144 +1,144 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import { FaShieldAlt, FaHeadset, FaMoneyCheckAlt } from "react-icons/fa";
 
-const features = [
-  {
-    icon: <FaShieldAlt size={40} className="text-purple-500" />,
-    title: "Reliability and Security",
-    description:
-      "We prioritize reliability and security, delivering dependable solutions that protect your business from risks while ensuring smooth, uninterrupted operations.",
-  },
-  {
-    icon: <FaHeadset size={40} className="text-purple-500" />,
-    title: "Fast Customer Service",
-    description:
-      "Our dedicated team provides fast, efficient customer service, resolving issues promptly and ensuring your business stays on track with minimal downtime.",
-  },
-  {
-    icon: <FaMoneyCheckAlt size={40} className="text-purple-500" />,
-    title: "Reasonable Maintenance Costs",
-    description:
-      "We provide tailored, cost-effective maintenance services to ensure your systems stay updated and functional without unnecessary expenses.",
-  },
+import React from "react";
+import { motion } from "framer-motion";
+import { Zap, Layers, ShieldCheck, MonitorPlay, Globe, Code, Cpu, Rocket, Target, Award } from "lucide-react";
+
+// Icon mapping from string names to components
+const ICON_MAP = {
+  Zap: Zap, Layers: Layers, ShieldCheck: ShieldCheck, MonitorPlay: MonitorPlay,
+  Globe: Globe, Code: Code, Cpu: Cpu, Rocket: Rocket, Target: Target, Award: Award,
+};
+
+// Fallback pillars data
+const DEFAULT_PILLARS = [
+  { title: "Velocity", subtitle: "Beyond Just Speed", description: "Next.js + Expo, SSR, edge-caching. We build for near-instantaneous load times.", icon_name: "Zap" },
+  { title: "Hyper-Scalability", subtitle: "Elastic Architecture", description: "Modular architecture, decoupled microservices, and serverless functions.", icon_name: "Layers" },
+  { title: "Fortified Security", subtitle: "Privacy by Design", description: "AES-256 encryption, OAuth 2.0, OWASP standards. Security is the foundation.", icon_name: "ShieldCheck" },
+  { title: "Cinematic Aesthetic", subtitle: "UX Excellence", description: "High-contrast interfaces, glassmorphism, 60fps animations.", icon_name: "MonitorPlay" },
 ];
 
-const FeatureCard = ({ feature, index }) => {
-  const cardRef = useRef(null);
+// Simple body text renderer: splits by blank lines into paragraphs, handles > quotes and **bold**
+function renderBody(body) {
+  if (!body) return null;
+  const paragraphs = body.split("\n").filter((p) => p.trim() !== "");
 
-  useEffect(() => {
-    if (!cardRef.current) return;
+  return paragraphs.map((p, i) => {
+    // Quote line (starts with >)
+    if (p.trim().startsWith(">")) {
+      const text = p.trim().replace(/^>\s*/, "");
+      return (
+        <p key={i} className="text-xl text-[#c2a66b] font-medium italic border-l-2 border-[#c2a66b] pl-6 py-2 my-2 bg-[#c2a66b]/5">
+          {text}
+        </p>
+      );
+    }
 
-    const card = cardRef.current;
-    
-    const handleMouseMove = (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    // Process **bold** markers
+    const parts = p.split(/\*\*(.*?)\*\*/g);
+    return (
+      <p key={i}>
+        {parts.map((part, j) =>
+          j % 2 === 1 ? (
+            <strong key={j} className="text-white font-medium">{part}</strong>
+          ) : (
+            <React.Fragment key={j}>{part}</React.Fragment>
+          )
+        )}
+      </p>
+    );
+  });
+}
 
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+};
 
-      // Calculate rotation based on mouse position
-      const rotateX = ((y - centerY) / centerY) * 10; // Limit rotation to 10 degrees
-      const rotateY = ((x - centerX) / centerX) * 10;
-
-      // Apply transform with smooth transition
-      card.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-    };
-
-    const handleMouseLeave = () => {
-      // Reset transform with smooth transition
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    };
-
-    card.addEventListener("mousemove", handleMouseMove);
-    card.addEventListener("mouseleave", handleMouseLeave);
-    
-    return () => {
-      card.removeEventListener("mousemove", handleMouseMove);
-      card.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
-
-  // Calculate position offset based on index
-  const getPositionClasses = () => {
-    if (index === 0) return "ml-18"; // First card shifted left
-    if (index === 1) return "ml-4";  // Second card centered
-    if (index === 2) return "ml-16"; // Third card shifted right
-    return "";
-  };
+export default function AboutSection({ brandStory, pillars: propPillars }) {
+  const heading1 = brandStory?.heading_line1 || "Solving the";
+  const headingGlow = brandStory?.heading_glow || '"Unsolvable"';
+  const bodyText = brandStory?.body || "";
+  const ctaText = brandStory?.cta_text || "Discover Our Method";
+  const pillars = propPillars?.length > 0 ? propPillars : DEFAULT_PILLARS;
 
   return (
-    <div
-      ref={cardRef}
-      className={`font-montserrat bg-gray-900 text-white p-6 rounded-xl shadow-lg w-4/5 ${getPositionClasses()}`}
-      style={{
-        perspective: "1000px",
-        transformStyle: "preserve-3d",
-        transition: "transform 0.3s ease",
-        willChange: "transform"
-      }}
-    >
-      <div className="relative z-10 flex items-center justify-center flex-col h-56" style={{ transform: "translateZ(20px)" }}>
-        <div className="mb-3 ">{feature.icon}</div>
-        <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-        <p className="text-sm text-gray-300">{feature.description}</p>
-      </div>
-      <div 
-        className="absolute inset-0 bg-gradient-to-tr from-purple-600/10 to-indigo-600/5 rounded-xl"
-        style={{ transform: "translateZ(0px)" }}
-      />
-    </div>
-  );
-};
+    <section className="relative w-full bg-[#050b14] py-24 lg:py-32 overflow-hidden font-montserrat text-gray-200">
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#c2a66b]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#1a4fb0]/5 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
 
-const AboutSection = () => {
-return (
-    <section className="py-16 px-4 md:px-16 bg-white text-black font-montserrat">
-        <div className="max-w-7xl items-center mx-auto flex max-lg:flex-col  gap-10">
-            {/* Left Section */}
-            <div className="flex-1 flex flex-col gap-2">
-                <p className="text-orange-600 font-semibold uppercase mb-2 text- md:text-left">
-                    About 404Services
-                </p>
-                <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-6 text- md:text-left">
-                    Let Your <span className="text-purple-600">Next Click</span> be
-                    <span className="text-black">404SERVICES.</span>
-                </h2>
-                <p className="text-gray-700 mb-6 leading-relaxed text- md:text-left">
-                    DexfliQ is a leading company specializing in developing and
-                    deploying technologies for efficient business management. With a
-                    team of software experts, we create innovative solutions that
-                    enhance activities in the academic, business, and social sectors.
-                </p>
-                <p className="text-gray-700 mb-6 leading-relaxed text- md:text-left">
-                    We believe in building strong relationships with our clients through
-                    close collaboration and understanding of their needs. This approach
-                    allows us to build mutual trust and provide tailored advice. Our
-                    experts suggest suitable technologies that can transform and enhance
-                    your business operations, ensuring you receive high-quality services
-                    at reasonable costs.
-                </p>
-                <div className="text-center md:text-left">
-                    <a
-                        href="#"
-                        className="text-orange-600 font-semibold hover:underline inline-flex items-center gap-1"
-                    >
-                        MORE ABOUT US →
-                    </a>
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 relative z-10">
+        
+        {/* Left: Brand Story */}
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="flex flex-col gap-8 justify-center"
+        >
+          <div>
+            <div className="inline-flex items-center gap-2 mb-4">
+              <span className="w-8 h-[1px] bg-[#c2a66b]"></span>
+              <span className="text-[#c2a66b] text-sm font-semibold tracking-widest uppercase">Our Identity</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-outfit text-white leading-tight">
+              {heading1} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c2a66b] to-[#f4d083]">
+                {headingGlow}
+              </span>
+            </h2>
+          </div>
+
+          <div className="space-y-6 text-gray-400 font-light leading-relaxed text-lg">
+            {renderBody(bodyText)}
+          </div>
+
+          <div className="pt-4">
+            <button className="flex items-center gap-2 group text-[#c2a66b] font-medium tracking-wide hover:text-white transition-colors duration-300">
+              <span className="border-b border-[#c2a66b] pb-1 group-hover:border-white transition-colors duration-300">
+                {ctaText}
+              </span>
+              <span className="transform group-hover:translate-x-2 transition-transform duration-300">→</span>
+            </button>
+          </div>
+        </motion.div>
+
+        {/* Right: Four Pillars */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+        >
+          {pillars.map((pillar, index) => {
+            const IconComp = ICON_MAP[pillar.icon_name] || Zap;
+            return (
+              <motion.div
+                key={pillar.id || index}
+                variants={itemVariants}
+                className="group relative bg-white/[0.02] border border-white/[0.05] hover:border-[#c2a66b]/40 backdrop-blur-sm rounded-2xl p-8 transition-all duration-500 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#c2a66b]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-full bg-[#c2a66b]/10 flex items-center justify-center mb-6 border border-[#c2a66b]/20 group-hover:scale-110 transition-transform duration-500">
+                    <IconComp className="w-6 h-6 text-[#c2a66b]" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#c2a66b] transition-colors duration-300">{pillar.title}</h3>
+                  <p className="text-[#c2a66b] text-xs font-semibold uppercase tracking-wider mb-4">{pillar.subtitle}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed font-light">{pillar.description}</p>
                 </div>
-            </div>
-
-            {/* Right Section */}
-            <div className="flex-1 flex flex-col gap-8 items-center md:items-stretch">
-                {features.map((feature, index) => (
-                    <FeatureCard key={index} feature={feature} index={index} />
-                ))}
-            </div>
-        </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
     </section>
-);
-};
-
-export default AboutSection;
+  );
+}

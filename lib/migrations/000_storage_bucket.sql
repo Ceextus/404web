@@ -1,0 +1,11 @@
+-- Migration 000: Storage Bucket Setup
+-- Do this MANUALLY in the Supabase Dashboard UI:
+--
+-- 1. Go to Storage → New Bucket
+-- 2. Name: "assets" (or "404" as you named it)
+-- 3. Toggle to PUBLIC
+-- 4. Add Policies via UI:
+--    a) Name: "Public read"  | Operation: SELECT | Definition: true
+--    b) Name: "Auth upload"  | Operation: INSERT | Target: authenticated | Definition: true
+--
+-- This file is documentation only — no SQL to run.
