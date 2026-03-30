@@ -40,6 +40,7 @@ const TiltCard = ({ project, span }) => {
   };
 
   return (
+    <a href={project.project_url} target="_blank" rel="noopener noreferrer" className="block">
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 30 },
@@ -81,6 +82,7 @@ const TiltCard = ({ project, span }) => {
         </div>
       </div>
     </motion.div>
+    </a>
   );
 };
 

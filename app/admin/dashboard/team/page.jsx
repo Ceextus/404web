@@ -106,7 +106,8 @@ export default function TeamAdminPage() {
       if (v.id) { await supabase.from("core_values").update(row).eq("id", v.id); }
       else { const { data } = await supabase.from("core_values").insert(row).select(); if (data?.[0]) values[i].id = data[0].id; }
     }
-
+    // Purge cache
+    try { await fetch("/api/revalidate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ paths: ["/", "/about"] }) }); } catch (e) {}
     setSaving(false); setSaved(true); setHasChanges(false);
     setTimeout(() => setSaved(false), 3000);
   };

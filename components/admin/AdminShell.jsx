@@ -57,6 +57,7 @@ export default function AdminShell({ children }) {
           icon: Briefcase,
         },
         { name: "Insights / Blog", href: "/admin/dashboard/blog", icon: Code },
+        { name: "Footer & Contact", href: "/admin/dashboard/footer", icon: Code },
         {
           name: "homepage-about",
           href: "/admin/dashboard/homepage-about",

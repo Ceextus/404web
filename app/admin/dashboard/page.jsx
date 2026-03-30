@@ -114,6 +114,8 @@ export default function AdminDashboard() {
     setSaving(false);
 
     if (!error) {
+      // Purge cache
+      try { await fetch("/api/revalidate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ paths: ["/", "/about", "/portfolio", "/contact", "/services", "/insights"] }) }); } catch (e) {}
       setSaved(true);
       setHasChanges(false);
       setTimeout(() => setSaved(false), 3000);

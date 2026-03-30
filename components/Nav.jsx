@@ -91,7 +91,7 @@ const Nav = ({ settings = {} }) => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 font-outfit flex justify-center ${
+        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-700 font-outfit flex justify-center ${
           isScrolled ? "pt-6 px-4" : "pt-6 px-6 sm:px-10"
         }`}
       >

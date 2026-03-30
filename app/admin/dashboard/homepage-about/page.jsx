@@ -76,7 +76,8 @@ export default function HomepageAboutAdmin() {
         if (data?.[0]) pillars[i].id = data[0].id;
       }
     }
-
+    // Purge cache
+    try { await fetch("/api/revalidate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ paths: ["/"] }) }); } catch (e) {}
     setSaving(false);
     setSaved(true);
     setHasChanges(false);

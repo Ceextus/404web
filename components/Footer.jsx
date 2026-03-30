@@ -1,10 +1,22 @@
-import { MapPin, Mail, Linkedin, Twitter, Github, Instagram, ArrowUpRight } from "lucide-react";
-import Image from "next/image";
+import { MapPin, Mail, Phone, Linkedin, Twitter, Github, Instagram, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer({ settings = {} }) {
-  const currentYear = new Date().getFullYear(); // 2026
-  
+  const currentYear = new Date().getFullYear();
+
+  const description = settings.footer_description || "We specialize in engineering the impossible. From high-performance mobile apps to scalable web architectures, we turn complex problems into seamless digital ecosystems.";
+  const email = settings.contact_email || "hello@404services.com";
+  const phone = settings.contact_phone || "";
+  const address = settings.contact_address || "High-Energy Tech Hubs";
+  const availability = settings.availability_text || "Available for global remote projects";
+
+  const socials = [
+    { url: settings.social_twitter, icon: Twitter, label: "Twitter (X)" },
+    { url: settings.social_linkedin, icon: Linkedin, label: "LinkedIn" },
+    { url: settings.social_github, icon: Github, label: "GitHub" },
+    { url: settings.social_instagram, icon: Instagram, label: "Instagram" },
+  ].filter((s) => s.url);
+
   return (
     <footer className="w-full bg-[#03060a] text-white font-sans pt-24 lg:pt-32 relative overflow-hidden border-t border-white/5">
       
@@ -42,14 +54,14 @@ export default function Footer({ settings = {} }) {
             <Link href="/" className="mb-6 inline-block">
               <img
                 src={settings.logo_url || "/404 slogo.png"}
-                alt="404Services Logo"
+                alt="Logo"
                 className={`object-contain w-40 max-h-12 ${
                   (settings.logo_url || "/404 slogo.png").startsWith("/") ? "brightness-0 invert" : ""
                 }`}
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-              We specialize in engineering the impossible. From high-performance mobile apps to scalable web architectures, we turn complex problems into seamless digital ecosystems.
+              {description}
             </p>
           </div>
           
@@ -59,7 +71,7 @@ export default function Footer({ settings = {} }) {
             <ul className="space-y-4">
               <li><Link href="/services" className="text-gray-400 hover:text-[#c2a66b] transition-colors text-sm uppercase tracking-wide">Services</Link></li>
               <li><Link href="/portfolio" className="text-gray-400 hover:text-[#c2a66b] transition-colors text-sm uppercase tracking-wide">Portfolio</Link></li>
-              <li><Link href="/careers" className="text-gray-400 hover:text-[#c2a66b] transition-colors text-sm uppercase tracking-wide">Careers</Link></li>
+              <li><Link href="/insights" className="text-gray-400 hover:text-[#c2a66b] transition-colors text-sm uppercase tracking-wide">Insights</Link></li>
               <li><Link href="/contact" className="text-gray-400 hover:text-[#c2a66b] transition-colors text-sm uppercase tracking-wide">Contact</Link></li>
             </ul>
           </div>
@@ -71,24 +83,28 @@ export default function Footer({ settings = {} }) {
               <div className="flex items-start gap-4">
                 <MapPin className="text-[#c2a66b] shrink-0 w-5 h-5 mt-0.5" />
                 <div>
-                  <p className="text-gray-400 text-sm leading-relaxed font-semibold uppercase tracking-widest text-[10px] mb-1">
-                    Location
-                  </p>
-                  <p className="text-gray-300 text-sm">High-Energy Tech Hubs</p>
+                  <p className="text-gray-400 text-sm leading-relaxed font-semibold uppercase tracking-widest text-[10px] mb-1">Location</p>
+                  <p className="text-gray-300 text-sm">{address}</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-4">
                 <Mail className="text-[#c2a66b] shrink-0 w-5 h-5 mt-0.5" />
                 <div className="flex flex-col">
-                  <p className="text-gray-400 text-sm leading-relaxed font-semibold uppercase tracking-widest text-[10px] mb-1">
-                    General Inquiry
-                  </p>
-                  <a href="mailto:hello@404services.com" className="text-gray-300 hover:text-white transition-colors text-sm">
-                    hello@404services.com
-                  </a>
+                  <p className="text-gray-400 text-sm leading-relaxed font-semibold uppercase tracking-widest text-[10px] mb-1">General Inquiry</p>
+                  <a href={`mailto:${email}`} className="text-gray-300 hover:text-white transition-colors text-sm">{email}</a>
                 </div>
               </div>
+
+              {phone && (
+                <div className="flex items-start gap-4">
+                  <Phone className="text-[#c2a66b] shrink-0 w-5 h-5 mt-0.5" />
+                  <div className="flex flex-col">
+                    <p className="text-gray-400 text-sm leading-relaxed font-semibold uppercase tracking-widest text-[10px] mb-1">Phone</p>
+                    <a href={`tel:${phone}`} className="text-gray-300 hover:text-white transition-colors text-sm">{phone}</a>
+                  </div>
+                </div>
+              )}
 
               {/* Status Indicator */}
               <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/5">
@@ -96,7 +112,7 @@ export default function Footer({ settings = {} }) {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c2a66b] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-[#c2a66b]"></span>
                 </span>
-                <span className="text-gray-300 uppercase tracking-widest text-[10px]">Available for global remote projects</span>
+                <span className="text-gray-300 uppercase tracking-widest text-[10px]">{availability}</span>
               </div>
             </div>
           </div>
@@ -104,7 +120,7 @@ export default function Footer({ settings = {} }) {
         </div>
       </div>
       
-      {/* Bottom Bar Extravaganza */}
+      {/* Bottom Bar */}
       <div className="border-t border-white/5 bg-[#010306]">
         <div className="max-w-[1400px] mx-auto px-6 py-8 flex flex-col lg:flex-row justify-between items-center gap-6">
           
@@ -120,21 +136,17 @@ export default function Footer({ settings = {} }) {
             <Link href="/terms" className="text-gray-500 hover:text-white transition-colors text-[10px] md:text-xs tracking-widest uppercase">Terms of Service</Link>
           </div>
 
-          {/* Social Links Mapping (Requested: Twitter, LinkedIn, GitHub, Instagram) */}
-          <div className="flex gap-4 order-1 lg:order-3">
-            <a href="#" aria-label="Twitter (X)" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#050b14] hover:bg-[#c2a66b] hover:border-[#c2a66b] transition-all duration-300">
-              <Twitter className="w-4 h-4" />
-            </a>
-            <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#050b14] hover:bg-[#c2a66b] hover:border-[#c2a66b] transition-all duration-300">
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a href="#" aria-label="GitHub" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#050b14] hover:bg-[#c2a66b] hover:border-[#c2a66b] transition-all duration-300">
-              <Github className="w-4 h-4" />
-            </a>
-            <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#050b14] hover:bg-[#c2a66b] hover:border-[#c2a66b] transition-all duration-300">
-              <Instagram className="w-4 h-4" />
-            </a>
-          </div>
+          {/* Social Links — Only show links that have URLs */}
+          {socials.length > 0 && (
+            <div className="flex gap-4 order-1 lg:order-3">
+              {socials.map((s) => (
+                <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#050b14] hover:bg-[#c2a66b] hover:border-[#c2a66b] transition-all duration-300">
+                  <s.icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          )}
 
         </div>
       </div>

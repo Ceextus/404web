@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^18.0.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
+    "@sentry/nextjs": "^10.46.0",
     "@supabase/supabase-js": "^2.100.1",
     "animate.css": "^4.1.1",
     "framer-motion": "^12.9.1",

@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS projects (
   client TEXT NOT NULL DEFAULT '',
   description TEXT NOT NULL DEFAULT '',
   image_url TEXT NOT NULL DEFAULT '',
+  project_url TEXT NOT NULL DEFAULT '',
   is_featured BOOLEAN DEFAULT false,
   sort_order INT NOT NULL DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT NOW()

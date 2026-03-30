@@ -8,6 +8,7 @@ const PortfolioCard = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
+    <a href={project.project_url} target="_blank" rel="noopener noreferrer" className="block">
     <motion.div
       layout
       initial={{ opacity: 0, scale: 0.95 }}
@@ -55,6 +56,7 @@ const PortfolioCard = ({ project }) => {
         </div>
       </div>
     </motion.div>
+    </a>
   );
 };
 

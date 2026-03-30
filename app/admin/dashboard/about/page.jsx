@@ -66,7 +66,8 @@ export default function AboutAdminPage() {
           { onConflict: "section_key" }
         );
     }
-
+    // Purge cache
+    try { await fetch("/api/revalidate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ paths: ["/", "/about"] }) }); } catch (e) {}
     setSaving(false);
     setSaved(true);
     setHasChanges(false);
